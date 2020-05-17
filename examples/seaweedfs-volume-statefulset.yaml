@@ -1,0 +1,37 @@
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: seaweedfs-volume
+  labels:
+    app: seaweedfs
+    component: volume
+spec:
+  selector:
+    matchLabels:
+      app: seaweedfs
+      component: volume
+  serviceName: seaweedfs-volume
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: seaweedfs
+        component: volume
+    spec:
+      containers:
+      - name: volume
+        image: elek/seaweedfs
+        args:
+        - weed
+        - volume
+        - -mserver=seaweedfs-master-0.seaweedfs-master:9333
+        - -dir="/data"
+        ports:
+        - containerPort: 9333
+        volumeMounts:
+        - name: data
+          mountPath: /data
+      volumes:
+      - name: data
+        emptyDir: {}

@@ -1,0 +1,16 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: seaweedfs-master
+  labels:
+    app: seaweedfs
+    component: master
+spec:
+  clusterIP: None
+  ports:
+  - port: 9333
+    name: seaweedfs
+  selector:
+    app: seaweedfs
+    component: master

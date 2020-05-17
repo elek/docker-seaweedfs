@@ -1,0 +1,4 @@
+source:
+- path: ../flekszible
+import:
+- path: seaweedfs
